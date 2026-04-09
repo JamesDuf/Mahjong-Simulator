@@ -13,6 +13,10 @@ CHINESE_NUMBERS = {
         9: '九'
     }
 
+HONOR_TILES = ['Dong', 'Nan', 'Xi', 'Bei', 'Hong zhong', 'Fa cai', 'Bai ban']
+WIND_TILES = ['Dong', 'Nan', 'Xi', 'Bei']
+DRAGON_TILES = ['Hong zhong', 'Fa cai', 'Bai ban']
+
 class Suit(Enum):
     """Enumeration for Mahjong tile suits. Suits will be sorted in ascending order."""
 
@@ -26,21 +30,21 @@ class Suit(Enum):
 class Tile:
     """Represents a single Mahjong tile."""
 
+    def __init__(self, value: int , suit: Suit| str):
+        self.suit = suit
+        self.value = value
+
     # Custom ordering for non-numerical tiles to allow proper hand sorting
     _honor_order = {
         'Bei': 1, 'Dong': 2, 'Nan': 3, 'Xi': 4,
         'Hong zhong': 1, 'Fa cai': 2, 'Bai ban': 3
     }
 
-    def __init__(self, suit: Suit, value: int | str):
-        self.suit = suit
-        self.value = value
-
     @property
     def is_honor(self) -> bool:
         """Returns True if the tile is a Fang or Dragon."""
 
-        return self.suit in (Suit.FANG, Suit.DRAGON)
+        return self.suit in (Suit.Fang, Suit.Dragon)
     
     @property
     def is_numerical(self) -> bool:
@@ -89,10 +93,10 @@ class Tile:
     
     def __str__(self) -> str:
         """User-friendly string representation."""
-        if self.suit in Suit.Dragon: 
+        if self.suit == Suit.Dragon: 
             return f'{self.value}'
         
-        if self.suit in Suit.Fang: 
+        if self.suit == Suit.Fang: 
             return f'{self.value} {self.suit.name}'
 
         else: 
