@@ -5,8 +5,11 @@ from tiles import Tile
 class Wall:
     """Tiles remaining in the round."""
 
-    def __init__(self, tiles):
-        self._tiles = list(tiles)
+    def __init__(self, tiles = None):
+        if tiles is not None:
+            self._tiles = list(tiles) 
+        else:
+            self._tiles = []
 
     @property
     def tiles(self):
